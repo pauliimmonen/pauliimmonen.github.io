@@ -1,0 +1,217 @@
+body{
+    background-color:#cccccc;
+    height:100%;
+}
+div.tablemaxwidth{
+    padding-left:6px;
+    padding-right:6px;
+    max-width:1036px;
+    margin-right:auto;
+    margin-left:auto;
+}
+div.cont{
+    //height: -webkit-fill-available;
+    //height: -moz-available;   
+    background-color:#c6b36f;
+    max-width:1150px;
+    max-height:4000px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom:10px
+}
+
+div.ad_emptyspace{
+    float:left;
+    background-color:black;
+    width:100%
+}
+div#ad_leaderboard{
+    background-color:red;
+    width:728px;
+    height:90px;
+}
+
+label.settings_header{
+    width:98px;
+    float: left;
+    padding-right: 5px;
+    padding-top: 6px;
+    font-weight: 600;
+    font-size: 16px;
+}
+td{
+    max-width:207px;
+    max-height:328px;
+    cursor:pointer;
+    background-color:#dddddd;
+    border: 1px solid #5b3f11;
+}
+button.dombtn{
+    font-weight:bold;
+    background-color:#4286f4;
+    color:white;
+    margin-top:4px;
+}
+
+.tablecontainer{
+    margin-top:10px;
+    margin-left:5px;
+    margin-right:5px;
+}
+table.center{
+    margin-left:auto;
+    margin-right:auto;
+
+}
+.selectedCardTable tr td {
+    padding:3px;
+    background-color:black;
+}
+table.eventsTable{
+    max-width:640px;
+    width:100%;
+    margin-top: 3px;
+}
+div.header{
+    padding:0px;
+    padding-top:2px;
+    margin:5px;
+    font-family: "Times New Roman", Georgia, Serif;
+    text-align:center;
+    background-color:#5b3f11;
+    color:white;
+}
+div.buttonmenu{
+    width:100%;
+}
+div.checkbox2{
+    margin-top:6px;
+    margin-left:0px;
+}
+.index {
+    background: none repeat scroll 0 0 #0063ff;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+div.checkbox2 label.label {
+    padding-left:5px;
+    padding-right:5px;
+    display:inline-block;
+    background:grey;
+    margin-bottom:5px;
+    margin-top:5px;
+    font-size:14px;
+    font-weight:bold;
+
+    border:1px solid gray;
+    box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.10);
+}
+div.checkbox2 label.label:hover {
+    background:#88a688;
+    position:relative;
+    //top:1px;
+    box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.10);
+    max-width:500px;
+}
+div.topbar{
+    background-color:black;
+    padding:8px;
+    padding-top:3px;
+    margin-bottom:0px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+div.settings{
+    border-top:8px solid #5b3f11;
+    background-color:#b79e63;
+    margin-top:0px;
+    overflow: hidden;
+}
+div.footer{
+     height: 50px; 
+     bottom:0px ;
+     line-height: 50px; 
+}
+div#about{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    margin-top: 20px;
+    font-size:11px;
+    width:40%;
+}
+span.badge{
+    color:black;
+    background-color:yellow;
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(red 5%, yellow 15%, green 60%); /* Safari 5.1-6.0 */
+    background: -o-radial-gradient(red 5%, yellow 15%, green 60%); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(red 5%, yellow 15%, green 60%); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(yellow 35%, #aba703 74%); Standard syntax (must be last) */
+    border: 1px solid #987d00;
+}
+
+input[type="checkbox"]:checked + span.badge {
+    background-color:black;
+}
+
+
+input[type="checkbox"]:checked + label.label {
+    position:relative;
+    top:2px;
+    margin-left:0px;
+    background:#4286f4;
+    border:1px solid gray;
+    box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 1.0), 0 6px 15px 0 rgba(0, 0, 0, 0.10);
+}
+
+input[type="checkbox"]{
+    display:none;
+    height:100px;
+}
+
+
+#selectedCardTable img{
+    max-width:200px;
+    max-height:320px;
+    width:100%;
+}
+
+#eventsTable img{
+    max-width:320px;
+    max-height:197px;
+    width:100%;
+}
+
+.eventsTable tr td {
+    padding:3px;
+    background-color:black;
+}
+
+.eventsTable td.selected{
+    background-color:#ff7e44;
+    padding:3px;
+    opacity:0.80;
+}
+
+
+
+.selectedCardTable td.selected{
+    background-color:#ff7e44;
+    padding:3px;
+    opacity:0.80;
+}
+.selectedCardTable td.last_selected{
+    background-color:#ffaa44;
+    padding:3px;
+    opacity:0.80;
+}
+
+.ui-menu .ui-menu-item a{
+}
+

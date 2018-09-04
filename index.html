@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="script.js"></script>
+
+</head>
+<body onload="initTable()">
+<div class="container.fluid cont">
+
+    <!--
+    <div class="header">
+        <h1>Dominion Random Rnd</h1>
+    </div>
+    -->
+
+    <div class="topbar">
+        <div class="tablemaxwidth">
+        <button id="choose" class="btn dombtn" onclick="updateTable()">Choose cards</button>
+        <button id="repick_button" class="btn dombtn" onclick="repickCards()">Repick</button>
+        <button id="sort" class="btn dombtn" onclick="sortClicked()">Sort</button>
+        <button id="setDisplay" class="btn dombtn" onclick="toggleSetDisplay()">Sets</button>
+        <button id="moneyDisplay" class="btn dombtn" onclick="togglePriceDisplay()">Filter</button>
+        </div>
+    </div>
+
+    <div class="settings">
+
+        <div class="tablemaxwidth">
+
+            <div class="row">
+                <!--
+                <div id="ad_leaderboard" >
+                </div>
+                -->
+            </div>
+
+            <div id="sets" class="checkbox2">
+                <label class="settings_header">Sets</label>
+                <input id="base_checkbox"        checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="base_checkbox" class="label">Base</label>
+                <input id="intrigue_checkbox"    checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="intrigue_checkbox" class="label">Intrigue</label>
+                <input id="seaside_checkbox"     checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="seaside_checkbox" class="label">Seaside</label>
+                <input id="alchemy_checkbox"     checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="alchemy_checkbox" class="label">Alchemy</label>
+                <input id="prosperity_checkbox"  checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="prosperity_checkbox" class="label">Prosperity</label>
+                <input id="cornucopia_checkbox"  checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="cornucopia_checkbox" class="label">Cornycopia</label>
+                <input id="hinterlands_checkbox" checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="hinterlands_checkbox" class="label">Hinterlands</label>
+                <input id="dark_ages_checkbox"   checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="dark_ages_checkbox" class="label">Dark ages</label>
+                <input id="guilds_checkbox"      checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="guilds_checkbox" class="label">Guilds</label>
+                <input id="adventures_checkbox"  checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="adventures_checkbox" class="label">Adventures</label>
+                <input id="empires_checkbox"     checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="empires_checkbox" class="label">Empires</label>
+                <input id="nocturne_checkbox"    checked type="checkbox" onclick="updateAutocomplete()" value=""><label for="nocturne_checkbox" class="label">Nocturne</label>
+            </div>
+
+            <div id="prices" class="checkbox2">
+                <label class="settings_header">Repick filter</label>
+                <input id="price8_checkbox" type="checkbox" value=""><label for="price8_checkbox" class="label gold"><span class="badge" for="price8_checkbox">8</span></label>
+                <input id="price7_checkbox" type="checkbox" value=""><label for="price7_checkbox" class="label gold"><span class="badge" for="price7_checkbox">7</span></label>
+                <input id="price6_checkbox" type="checkbox" value=""><label for="price6_checkbox" class="label gold"><span class="badge" for="price6_checkbox">6</span></label>
+                <input id="price5_checkbox" type="checkbox" value=""><label for="price5_checkbox" class="label gold"><span class="badge" for="price5_checkbox">5</span></label>
+                <input id="price4_checkbox" type="checkbox" value=""><label for="price4_checkbox" class="label gold"><span class="badge" for="price4_checkbox">4</span></label>
+                <input id="price3_checkbox" type="checkbox" value=""><label for="price3_checkbox" class="label gold"><span class="badge" for="price3_checkbox">3</span></label>
+                <input id="price2_checkbox" type="checkbox" value=""><label for="price2_checkbox" class="label gold"><span class="badge" for="price2_checkbox">2</span></label>
+
+                <input id="plus_actions" type="checkbox" value=""><label for="plus_actions" class="label">+action</label>
+                <input id="plus_cards" type="checkbox" value=""><label for="plus_cards" class="label">+cards</label>
+                <input id="trasher" type="checkbox" value=""><label for="trasher" class="label">trasher</label>
+                <input id="attack" type="checkbox" value=""><label for="attack" class="label">attack</label>
+                <input id="reaction" type="checkbox" value=""><label for="reaction" class="label">reaction</label>
+
+            </div>
+            <div id="findcarddiv" class="checkbox2">
+                <!-- TODO select card with the help of autocompelete
+                <label for="findcard" class="settings_header">Find card</label>
+                <input id="findcard" >
+                -->
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="tablecontainer">
+        <table style class="selectedCardTable center" id="selectedCardTable" >
+        </table>
+
+            <table style class="eventsTable center" id="eventsTable" >
+                <tr>
+                    <td></img></td>
+                    <td></img></td>
+                </tr>
+            </table>
+    </div>
+
+
+    <div id="about" class="about">
+        <p> Dominion is by Donald X. Vaccarino and published by Rio Grande Games. Card images are provided by Dominion Strategy Wiki. 
+        </p>
+    </div>
+
+
+
+    </div>
+</body>
+</html>
+

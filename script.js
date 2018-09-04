@@ -378,11 +378,12 @@ function getAutoCompleteTagsFromCards(){
 
 function loadStorage(){
     //
-    //TODO SAVE CURRENT SET TO STORAGE
+    //TODO LOAD CURRENT SET TO STORAGE
 }
 
 
 function saveStorage(){
+    //TODO SAVE CURRENT SET TO STORAGE
 }
 function comparePrice(a,b) {
   if (a.price < b.price)
@@ -548,7 +549,6 @@ function repickACard(index,dclick_elem){
     setCardImage(dclick_elem,r_card)
 }
 function isSelectionEvent(elem){
-    //alert(elem.parentNode.parentNode.parentNode.id)
     if (elem.parentNode.parentNode.parentNode.id=="eventsTable")
         return true;
     return false;
@@ -557,7 +557,6 @@ function repickCards(current_selected){
     var selected_cards=document.getElementsByClassName("selected");
     var repicked_cards=[];
     var repicked_events=[];
-    //var filtered_events=filterCardsBySet(all_events);
     var N=selected_cards.length;
     var r_card;
 

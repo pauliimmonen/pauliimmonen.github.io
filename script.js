@@ -361,7 +361,7 @@ $( function() {
             }
     },
     select: function( event, ui ) {
-        alert(ui.item.value);
+        setCardByName(ui.item.value);
         }
     });
   } );
@@ -370,6 +370,7 @@ $( function() {
 function getAutoCompleteTagsFromCards(){
     x=[];
     cards=filterCardsBySet(all_cards)
+    cards=filterPickedCards(cards,random_cards)
     for (i in cards) {
         x.push(cards[i].name);
     }
@@ -401,18 +402,28 @@ function sortCardsByPrice(cards){
    $(".selected").removeClass("selected");
 
 }
+
+function setCardByName(name){
+    var selected_cards=document.getElementsByClassName("selected");
+    var card = all_cards.filter (function(all_cards){ return all_cards.name == name });
+    let index=selected_cards[0].cellIndex+selected_cards[0].parentNode.rowIndex*5
+    card=repickCard(index, card);
+    random_cards[index]=card[0]
+    updateAutocomplete(filtered_cards)
+    setCardImage(selected_cards[0],card[0])
+}
 function getNCards(cardlist,n,cards){
-     var cards = [];
-     var item
-     var fcards
-     fcards=filterCardsBySet(cardlist)
-     for (i = 0; i < n; i++){
-        rand_i=Math.floor(Math.random()*fcards.length);
-        item = fcards[rand_i];
-        cards.push(item);
-        fcards.splice(rand_i,1);
-     }
-     return cards
+    var cards = [];
+    var item
+    var fcards
+    fcards=filterCardsBySet(cardlist)
+    for (i = 0; i < n; i++){
+       rand_i=Math.floor(Math.random()*fcards.length);
+       item = fcards[rand_i];
+       cards.push(item);
+       fcards.splice(rand_i,1);
+    }
+    return cards
 }
 function filterCardsByType(cardlist){
     var filtered_cards;
@@ -546,6 +557,8 @@ function repickACard(index,dclick_elem){
     }
     newcard=getNCards(filtered_cards,1);
     r_card=repickCard(index,newcard[0]);
+
+    updateAutocomplete(filtered_cards)
     setCardImage(dclick_elem,r_card)
 }
 function isSelectionEvent(elem){
@@ -589,6 +602,7 @@ function repickCards(){
         r_card=repickCard(selected_cards[k].cellIndex+selected_cards[k].parentNode.rowIndex*5,repicked_cards[k]);
         setCardImage(selected_cards[k],r_card)
     }
+    updateAutocomplete(filtered_cards)
 }
 
 function filterPickedCards(cardlist,cards){
@@ -840,6 +854,7 @@ function chooseCards() {
         random_cards=getTenCards(filtered_cards)
         random_events=selectEvents(filtered_events,2)
 
+        filtered_cards=filterPickedCards(filtered_cards,random_cards)
         find_cards=getAutoCompleteTagsFromCards(filtered_cards)
 
         updateAutocomplete(filtered_cards)
@@ -878,6 +893,22 @@ function toggleSelection(elem){
     }else{
         $('#choose').text("Randomize all")
     }
+    if ($('.selected').length == 1){
+        enableSingleCardSelection(true)
+    }else{
+        enableSingleCardSelection(false)
+    }
+}
+
+function enableSingleCardSelection(enabled){
+    if (enabled){
+        $('#findcard').prop('disabled', false);
+        $('#findcard').val('')
+    }else{
+        $('#findcard').prop('disabled', true);
+        $('#findcard').val('Select only one card')
+
+    }
 
 }
 
@@ -891,6 +922,13 @@ function toggleSetDisplay(){
 
 function togglePriceDisplay(){
     $("#prices").toggle(function(){
+        $(this).animate({height:0},200);
+    },function(){
+        $(this).animate({height:"auto"},200);
+    });
+}
+function toggleFindDisplay(){
+    $("#findcarddiv").toggle(function(){
         $(this).animate({height:0},200);
     },function(){
         $(this).animate({height:"auto"},200);

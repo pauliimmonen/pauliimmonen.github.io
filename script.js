@@ -361,7 +361,7 @@ $( function() {
             }
     },
     select: function( event, ui ) {
-        //alert(ui.item.value);
+        alert(ui.item.value);
         }
     });
   } );
@@ -553,7 +553,7 @@ function isSelectionEvent(elem){
         return true;
     return false;
 }
-function repickCards(current_selected){
+function repickCards(){
     var selected_cards=document.getElementsByClassName("selected");
     var repicked_cards=[];
     var repicked_events=[];
@@ -758,7 +758,7 @@ function initTable(table){
     cell8.ondblclick = function() {repickACard(7,this) };
     cell9.ondblclick = function() {repickACard(8,this) };
     cell10.ondblclick = function() {repickACard(9,this ) };
-    updateTable(all_cards)
+    chooseCards(all_cards)
 }
 
 function displayCards(cards){
@@ -827,22 +827,26 @@ function sortClicked(){
 
 }
 
-function updateTable() {
-    var filtered_cards=filterCardsBySet(all_cards)
-    var filtered_events=filterCardsBySet(all_events)
-    if (!isEnoughCards(filtered_cards,10)){
-        alert("Not enough cards with current restrictions")
-        return
+function chooseCards() {
+    if ($('.selected').length >= 1){
+        repickCards()
+    }else{
+        var filtered_cards=filterCardsBySet(all_cards)
+        var filtered_events=filterCardsBySet(all_events)
+        if (!isEnoughCards(filtered_cards,10)){
+            alert("Not enough cards with current restrictions")
+            return
+        }
+        random_cards=getTenCards(filtered_cards)
+        random_events=selectEvents(filtered_events,2)
+
+        find_cards=getAutoCompleteTagsFromCards(filtered_cards)
+
+        updateAutocomplete(filtered_cards)
+        sortCardsByPrice(random_cards);
+        displayCards(random_cards);
+        displayEvents(random_events);
     }
-    random_cards=getTenCards(filtered_cards)
-    random_events=selectEvents(filtered_events,2)
-
-    find_cards=getAutoCompleteTagsFromCards(filtered_cards)
-
-    updateAutocomplete(filtered_cards)
-    sortCardsByPrice(random_cards);
-    displayCards(random_cards);
-    displayEvents(random_events);
 }
 
 function setEventImage(elem,card){
@@ -864,11 +868,17 @@ function clearTable(table){
 }
 
 function toggleSelection(elem){
-    if (elem.className=="selected"){
+   if (elem.className=="selected"){
         elem.className="";
     }else{
         elem.className="selected";
     }
+    if ($('.selected').length >= 1){
+        $('#choose').text("Repick")
+    }else{
+        $('#choose').text("Randomize all")
+    }
+
 }
 
 function toggleSetDisplay(){

@@ -46,6 +46,9 @@ td{
     background-color:#dddddd;
     border: 1px solid #5b3f11;
 }
+button#choose{
+    min-width:130px;
+}
 button.dombtn{
     font-weight:bold;
     background-color:#4286f4;

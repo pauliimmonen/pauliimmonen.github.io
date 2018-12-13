@@ -25,11 +25,11 @@
 
     <div class="topbar">
         <div class="tablemaxwidth">
-        <button id="choose" class="btn dombtn" onclick="updateTable()">Randomize all</button>
-        <button id="repick_button" class="btn dombtn" onclick="repickCards()">Repick</button>
+        <button id="choose" class="btn dombtn" onclick="chooseCards()">Randomize all</button>
         <button id="sort" class="btn dombtn" onclick="sortClicked()">Sort</button>
         <button id="setDisplay" class="btn dombtn" onclick="toggleSetDisplay()">Sets</button>
         <button id="moneyDisplay" class="btn dombtn" onclick="togglePriceDisplay()">Filter</button>
+        <button id="moneyDisplay" class="btn dombtn" onclick="toggleFindDisplay()">Find a card</button>
         </div>
     </div>
 
@@ -72,10 +72,8 @@
 
             </div>
             <div id="findcarddiv" class="checkbox2">
-                <!-- TODO select card with the help of autocompelete
                 <label for="findcard" class="settings_header">Find card</label>
-                <input id="findcard" >
-                -->
+                <input disabled="true" id="findcard" >
             </div>
         </div>
 

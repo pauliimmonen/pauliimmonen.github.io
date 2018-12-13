@@ -344,32 +344,53 @@ var random_cards=[];
 var random_events=[];
 var find_cards=[];
 //var filtered_cards= all_cards;
-function updateAutocomplete(){
-find_cards=getAutoCompleteTagsFromCards();
-$( function() {
-    $( "#findcard" ).autocomplete({
-      max:10,
-      minLength:1,
-      source: function(request, response) {
-        var results = $.ui.autocomplete.filter(find_cards, request.term);
 
-        response(results.slice(0, 10));
+
+function updateAutocomplete(){
+    let selection=$('.selected')
+    if ($('.selected').length != 1){
+        return
+    }
+    if (isSelectionEvent(selection[0])){
+        find_cards=getAutoCompleteTagsFromEvents();
+    }else{
+        find_cards=getAutoCompleteTagsFromCards();
+    }
+    $( function() {
+        $( "#findcard" ).autocomplete({
+          max:10,
+          minLength:1,
+          source: function(request, response) {
+            var results = $.ui.autocomplete.filter(find_cards, request.term);
+
+            response(results.slice(0, 10));
+            },
+          messages: {
+            noResults: '',
+            results: function() {
+                }
         },
-      messages: {
-        noResults: '',
-        results: function() {
+        select: function( event, ui ) {
+            setCardByName(ui.item.value);
             }
-    },
-    select: function( event, ui ) {
-        //alert(ui.item.value);
-        }
-    });
-  } );
+        });
+      } );
 }
 
+function getAutoCompleteTagsFromEvents(){
+    x=[];
+    events=filterCardsBySet(all_events)
+    events=filterPickedCards(events,random_events)
+    for (i in events) {
+        x.push(events[i].name);
+    }
+    return x;
+
+}
 function getAutoCompleteTagsFromCards(){
     x=[];
     cards=filterCardsBySet(all_cards)
+    cards=filterPickedCards(cards,random_cards)
     for (i in cards) {
         x.push(cards[i].name);
     }
@@ -401,18 +422,20 @@ function sortCardsByPrice(cards){
    $(".selected").removeClass("selected");
 
 }
+
+
 function getNCards(cardlist,n,cards){
-     var cards = [];
-     var item
-     var fcards
-     fcards=filterCardsBySet(cardlist)
-     for (i = 0; i < n; i++){
-        rand_i=Math.floor(Math.random()*fcards.length);
-        item = fcards[rand_i];
-        cards.push(item);
-        fcards.splice(rand_i,1);
-     }
-     return cards
+    var cards = [];
+    var item
+    var fcards
+    fcards=filterCardsBySet(cardlist)
+    for (i = 0; i < n; i++){
+       rand_i=Math.floor(Math.random()*fcards.length);
+       item = fcards[rand_i];
+       cards.push(item);
+       fcards.splice(rand_i,1);
+    }
+    return cards
 }
 function filterCardsByType(cardlist){
     var filtered_cards;
@@ -546,14 +569,23 @@ function repickACard(index,dclick_elem){
     }
     newcard=getNCards(filtered_cards,1);
     r_card=repickCard(index,newcard[0]);
+
+    updateAutocomplete()
     setCardImage(dclick_elem,r_card)
+}
+function getSelectionIndex(selection){
+    if (isSelectionEvent(selection)){
+        return selection.cellIndex;
+    }else{
+        return selection.cellIndex+selection.parentNode.rowIndex*5;
+    }
 }
 function isSelectionEvent(elem){
     if (elem.parentNode.parentNode.parentNode.id=="eventsTable")
         return true;
     return false;
 }
-function repickCards(current_selected){
+function repickCards(){
     var selected_cards=document.getElementsByClassName("selected");
     var repicked_cards=[];
     var repicked_events=[];
@@ -582,13 +614,15 @@ function repickCards(current_selected){
     for (k=0; k<N; k++){
         if (isSelectionEvent(selected_cards[k])){
             setEventImage(selected_cards[k],repicked_events[event_count-1]);
+            random_events[getSelectionIndex(selected_cards[k])]=repicked_events[event_count-1];
             event_count--;
             continue;
         }
 
-        r_card=repickCard(selected_cards[k].cellIndex+selected_cards[k].parentNode.rowIndex*5,repicked_cards[k]);
+        r_card=repickCard(getSelectionIndex(selected_cards[k]),repicked_cards[k]);
         setCardImage(selected_cards[k],r_card)
     }
+    updateAutocomplete()
 }
 
 function filterPickedCards(cardlist,cards){
@@ -734,6 +768,20 @@ function filterCardsBySet(cardlist){
 
     return filtered_cards;
 }
+function setCardByName(name){
+    let selection = $('.selected')
+    let index=getSelectionIndex(selection[0])
+    if (isSelectionEvent(selection[0])){
+        card = all_events.filter (function(all_events){ return all_events.name == name });
+        random_events[index]=card[0]
+        setEventImage(selection[0],card[0])
+    }else{
+        card = all_cards.filter (function(all_cards){ return all_cards.name == name });
+        random_cards[index]=card[0]
+        updateAutocomplete()
+        setCardImage(selection[0],card[0])
+    }
+}
 function initTable(table){
     var table = document.getElementById("selectedCardTable");
     var row = table.insertRow(0);
@@ -758,7 +806,7 @@ function initTable(table){
     cell8.ondblclick = function() {repickACard(7,this) };
     cell9.ondblclick = function() {repickACard(8,this) };
     cell10.ondblclick = function() {repickACard(9,this ) };
-    updateTable(all_cards)
+    chooseCards(all_cards)
 }
 
 function displayCards(cards){
@@ -827,22 +875,27 @@ function sortClicked(){
 
 }
 
-function updateTable() {
-    var filtered_cards=filterCardsBySet(all_cards)
-    var filtered_events=filterCardsBySet(all_events)
-    if (!isEnoughCards(filtered_cards,10)){
-        alert("Not enough cards with current restrictions")
-        return
+function chooseCards() {
+    if ($('.selected').length >= 1){
+        repickCards()
+    }else{
+        filtered_cards=filterCardsBySet(all_cards)
+        filtered_events=filterCardsBySet(all_events)
+        if (!isEnoughCards(filtered_cards,10)){
+            alert("Not enough cards with current restrictions")
+            return
+        }
+        random_cards=getTenCards(filtered_cards)
+        random_events=selectEvents(filtered_events,2)
+
+        filtered_cards=filterPickedCards(filtered_cards,random_cards)
+        find_cards=getAutoCompleteTagsFromCards(filtered_cards)
+
+        updateAutocomplete()
+        sortCardsByPrice(random_cards);
+        displayCards(random_cards);
+        displayEvents(random_events);
     }
-    random_cards=getTenCards(filtered_cards)
-    random_events=selectEvents(filtered_events,2)
-
-    find_cards=getAutoCompleteTagsFromCards(filtered_cards)
-
-    updateAutocomplete(filtered_cards)
-    sortCardsByPrice(random_cards);
-    displayCards(random_cards);
-    displayEvents(random_events);
 }
 
 function setEventImage(elem,card){
@@ -864,11 +917,34 @@ function clearTable(table){
 }
 
 function toggleSelection(elem){
-    if (elem.className=="selected"){
+   if (elem.className=="selected"){
         elem.className="";
     }else{
         elem.className="selected";
     }
+    if ($('.selected').length >= 1){
+        $('#choose').text("Repick")
+    }else{
+        $('#choose').text("Randomize all")
+    }
+    updateAutocomplete();
+    if ($('.selected').length == 1){
+        enableSingleCardSelection(true)
+    }else{
+        enableSingleCardSelection(false)
+    }
+}
+
+function enableSingleCardSelection(enabled){
+    if (enabled){
+        $('#findcard').prop('disabled', false);
+        $('#findcard').val('')
+    }else{
+        $('#findcard').prop('disabled', true);
+        $('#findcard').val('Select only one card')
+
+    }
+
 }
 
 function toggleSetDisplay(){
@@ -881,6 +957,13 @@ function toggleSetDisplay(){
 
 function togglePriceDisplay(){
     $("#prices").toggle(function(){
+        $(this).animate({height:0},200);
+    },function(){
+        $(this).animate({height:"auto"},200);
+    });
+}
+function toggleFindDisplay(){
+    $("#findcarddiv").toggle(function(){
         $(this).animate({height:0},200);
     },function(){
         $(this).animate({height:"auto"},200);

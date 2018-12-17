@@ -1,19 +1,5 @@
 // +buy, +N action, +N card, +N money, trasher, junker, attack, reaction
 
-
-$.getScript("DominionCardModel.js", function( data, textStatus, jqxhr ) {
-  console.log( data ); // Data returned
-  console.log( textStatus ); // Success
-  console.log( jqxhr.status ); // 200
-  console.log( "Load was performed." );
-});
-$.getScript("DominionCardObserver.js", function( data, textStatus, jqxhr ) {
-  console.log( data ); // Data returned
-  console.log( textStatus ); // Success
-  console.log( jqxhr.status ); // 200
-  console.log( "Load was performed." );
-});
-
 var all_events=[
 
     {"name":"Alms", "set":"adventures" ,"price":4, "type":["event"]},
@@ -404,7 +390,10 @@ function getAutoCompleteTagsFromEvents(){
 function getAutoCompleteTagsFromCards(){
     x=[];
     cards=filterCardsBySet(all_cards)
+    cards=filterCardsByType(cards)
+    cards=filterCardsByPrice(cards)
     cards=filterPickedCards(cards,random_cards)
+
     for (i in cards) {
         x.push(cards[i].name);
     }
@@ -966,6 +955,7 @@ function toggleSetDisplay(){
         $(this).animate({height:0},200);
     },function(){
         $(this).animate({height:"auto"},200);
+        $("#setcaret").toggleClass("caret-reversed");
     });
 }
 
@@ -974,6 +964,7 @@ function togglePriceDisplay(){
         $(this).animate({height:0},200);
     },function(){
         $(this).animate({height:"auto"},200);
+        $("#filtercaret").toggleClass("caret-reversed");
     });
 }
 function toggleFindDisplay(){
@@ -981,5 +972,6 @@ function toggleFindDisplay(){
         $(this).animate({height:0},200);
     },function(){
         $(this).animate({height:"auto"},200);
+        $("#findcaret").toggleClass("caret-reversed");
     });
 }

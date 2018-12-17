@@ -27,9 +27,9 @@
         <div class="tablemaxwidth">
         <button id="choose" class="btn dombtn" onclick="chooseCards()">Randomize all</button>
         <button id="sort" class="btn dombtn" onclick="sortClicked()">Sort</button>
-        <button id="setDisplay" class="btn dombtn" onclick="toggleSetDisplay()">Sets</button>
-        <button id="moneyDisplay" class="btn dombtn" onclick="togglePriceDisplay()">Filter</button>
-        <button id="moneyDisplay" class="btn dombtn" onclick="toggleFindDisplay()">Find a card</button>
+        <button id="setDisplay" class="btn dombtn" onclick="toggleSetDisplay()">Sets <span id="setcaret" class="caret caret-reversed"></span></button>
+        <button id="moneyDisplay" class="btn dombtn" onclick="togglePriceDisplay()">Filter <span id="filtercaret" class="caret"></button>
+        <button id="findDisplay" class="btn dombtn" onclick="toggleFindDisplay()">Find a card <span id="findcaret" class="caret"></button>
         </div>
     </div>
 
@@ -56,19 +56,19 @@
 
             <div id="prices" class="checkbox2" style="display: none">
                 <label class="settings_header">Repick filter</label>
-                <input id="price8_checkbox" type="checkbox" value=""><label for="price8_checkbox" class="label gold"><span class="badge" for="price8_checkbox">8</span></label>
-                <input id="price7_checkbox" type="checkbox" value=""><label for="price7_checkbox" class="label gold"><span class="badge" for="price7_checkbox">7</span></label>
-                <input id="price6_checkbox" type="checkbox" value=""><label for="price6_checkbox" class="label gold"><span class="badge" for="price6_checkbox">6</span></label>
-                <input id="price5_checkbox" type="checkbox" value=""><label for="price5_checkbox" class="label gold"><span class="badge" for="price5_checkbox">5</span></label>
-                <input id="price4_checkbox" type="checkbox" value=""><label for="price4_checkbox" class="label gold"><span class="badge" for="price4_checkbox">4</span></label>
-                <input id="price3_checkbox" type="checkbox" value=""><label for="price3_checkbox" class="label gold"><span class="badge" for="price3_checkbox">3</span></label>
-                <input id="price2_checkbox" type="checkbox" value=""><label for="price2_checkbox" class="label gold"><span class="badge" for="price2_checkbox">2</span></label>
+                <input id="price8_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price8_checkbox" class="label gold"><span class="badge" for="price8_checkbox">8</span></label>
+                <input id="price7_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price7_checkbox" class="label gold"><span class="badge" for="price7_checkbox">7</span></label>
+                <input id="price6_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price6_checkbox" class="label gold"><span class="badge" for="price6_checkbox">6</span></label>
+                <input id="price5_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price5_checkbox" class="label gold"><span class="badge" for="price5_checkbox">5</span></label>
+                <input id="price4_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price4_checkbox" class="label gold"><span class="badge" for="price4_checkbox">4</span></label>
+                <input id="price3_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price3_checkbox" class="label gold"><span class="badge" for="price3_checkbox">3</span></label>
+                <input id="price2_checkbox" type="checkbox" onclick="updateAutocomplete()" value=""><label for="price2_checkbox" class="label gold"><span class="badge" for="price2_checkbox">2</span></label>
 
-                <input id="plus_actions" type="checkbox" value=""><label for="plus_actions" class="label">+action</label>
-                <input id="plus_cards" type="checkbox" value=""><label for="plus_cards" class="label">+cards</label>
-                <input id="trasher" type="checkbox" value=""><label for="trasher" class="label">trasher</label>
-                <input id="attack" type="checkbox" value=""><label for="attack" class="label">attack</label>
-                <input id="reaction" type="checkbox" value=""><label for="reaction" class="label">reaction</label>
+                <input id="plus_actions" type="checkbox" onclick="updateAutocomplete()" value=""><label for="plus_actions" class="label">+action</label>
+                <input id="plus_cards" type="checkbox" onclick="updateAutocomplete()" value=""><label for="plus_cards" class="label">+cards</label>
+                <input id="trasher" type="checkbox" onclick="updateAutocomplete()" value=""><label for="trasher" class="label">trasher</label>
+                <input id="attack" type="checkbox" onclick="updateAutocomplete()" value=""><label for="attack" class="label">attack</label>
+                <input id="reaction" type="checkbox" onclick="updateAutocomplete()" value=""><label for="reaction" class="label">reaction</label>
 
             </div>
             <div id="findcarddiv" class="checkbox2" style="display: none">

@@ -1,5 +1,19 @@
 // +buy, +N action, +N card, +N money, trasher, junker, attack, reaction
 
+
+$.getScript("DominionCardModel.js", function( data, textStatus, jqxhr ) {
+  console.log( data ); // Data returned
+  console.log( textStatus ); // Success
+  console.log( jqxhr.status ); // 200
+  console.log( "Load was performed." );
+});
+$.getScript("DominionCardObserver.js", function( data, textStatus, jqxhr ) {
+  console.log( data ); // Data returned
+  console.log( textStatus ); // Success
+  console.log( jqxhr.status ); // 200
+  console.log( "Load was performed." );
+});
+
 var all_events=[
 
     {"name":"Alms", "set":"adventures" ,"price":4, "type":["event"]},

@@ -589,7 +589,8 @@ function isSelectionEvent(elem){
     return false;
 }
 function repickCards(){
-    var selected_cards=document.getElementsByClassName("selected");
+    //var selected_cards=document.getElementsByClassName("selected");
+    var selected_cards=$('.selected')
     var repicked_cards=[];
     var repicked_events=[];
     var N=selected_cards.length;
@@ -785,30 +786,47 @@ function setCardByName(name){
         setCardImage(selection[0],card[0])
     }
 }
+function cardLoaded(elem,elem2){
+    elem.style.display="none"
+    elem2.style.display="block"
+
+}
 function initTable(table){
+    let frontimage = document.createElement('div');
+    let backimage = document.createElement('div');
+    let frontimage_img=new Image()
+    let backimage_img=new Image()
+    backimage.className="backimage"
+    frontimage.className="frontimage"
+    backimage_img.src="card_images/card_back2.jpg"
+    backimage.style.height="0px"
+    backimage.appendChild(backimage_img);
+    frontimage.appendChild(frontimage_img)
+    var cellarray=[];
+
     var table = document.getElementById("selectedCardTable");
     var row = table.insertRow(0);
     var row2 = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row2.insertCell(0);
-    var cell7 = row2.insertCell(1);
-    var cell8 = row2.insertCell(2);
-    var cell9 = row2.insertCell(3);
-    var cell10 = row2.insertCell(4);
-    cell1.ondblclick = function() {repickACard(0,this) };
-    cell2.ondblclick = function() {repickACard(1,this) };
-    cell3.ondblclick = function() {repickACard(2,this) };
-    cell4.ondblclick = function() {repickACard(3,this) };
-    cell5.ondblclick = function() {repickACard(4,this) };
-    cell6.ondblclick = function() {repickACard(5,this) };
-    cell7.ondblclick = function() {repickACard(6,this) };
-    cell8.ondblclick = function() {repickACard(7,this) };
-    cell9.ondblclick = function() {repickACard(8,this) };
-    cell10.ondblclick = function() {repickACard(9,this ) };
+    cellarray.push(row.insertCell(0));
+    cellarray.push(row.insertCell(1));
+    cellarray.push(row.insertCell(2));
+    cellarray.push(row.insertCell(3));
+    cellarray.push(row.insertCell(4));
+    cellarray.push(row2.insertCell(0));
+    cellarray.push(row2.insertCell(1));
+    cellarray.push(row2.insertCell(2));
+    cellarray.push(row2.insertCell(3));
+    cellarray.push(row2.insertCell(4));
+
+    for (let i = 0; i < cellarray.length; i++) {
+        cellarray[i].appendChild(frontimage.cloneNode(true));
+        cellarray[i].appendChild(backimage.cloneNode(true));
+        cellarray[i].ondblclick = function() {repickACard(0,this) };
+        cellarray[i].onclick = function(){
+            toggleSelection(this)
+        }
+    }
+
     chooseCards(all_cards)
 }
 
@@ -879,6 +897,9 @@ function sortClicked(){
 }
 
 function chooseCards() {
+    if ($("div:animated").length>= 1){
+        eturn
+    }
     if ($('.selected').length >= 1){
         repickCards()
     }else{
@@ -908,10 +929,69 @@ function setEventImage(elem,card){
     }
 }
 function setCardImage(elem,card){
-    elem.innerHTML="<img src=\"card_images/"+card.set+"/"+card.name+".jpg\" alt=\"\" ></img>"
-    elem.onclick = function(){
-        toggleSelection(this)
+    var frontimage
+    var backimage
+    for (let i = 0; i < elem.childNodes.length; i++) {
+        if (elem.childNodes[i].className == "frontimage") {
+            frontimage = elem.childNodes[i];
+            break;
+        }
     }
+    for (let i = 0; i < elem.childNodes.length; i++) {
+        if (elem.childNodes[i].className == "backimage") {
+            backimage = elem.childNodes[i];
+            break;
+        }
+    }
+
+
+
+    if (frontimage.childNodes[0].src==""){
+        frontimage.childNodes[0].src="card_images/"+card.set+"/"+card.name+".jpg"
+        frontimage.display="inline"
+        backimage.style.display="none"
+        return
+    }
+
+
+    var curHeight = $(frontimage.childNodes[0]).height();
+    frontimage.childNodes[0].onload=function() {
+        $(frontimage).animate({height:curHeight},400, function(){
+            backimage.style.display="none"
+            $(frontimage).css('height','auto');
+
+        });
+
+
+        $(backimage).animate({height:0},400, function(){
+            backimage.style.display="none"
+
+        });
+    };
+
+
+
+    backimage.style.display="block"
+    $(backimage).animate({height:curHeight},400, function(){
+
+    });
+    $(frontimage).animate({height:0},400, function(){
+
+        frontimage.childNodes[0].src="card_images/"+card.set+"/"+card.name+".jpg"
+        //first animation finished
+        //
+    });
+
+
+
+
+    //frontimage.style.display="none"
+
+    //
+    //frontimage.style.display="none"
+
+
+        //toggleSelection(this)
 }
 function clearTable(table){
     while (table.rows.length>0){

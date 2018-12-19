@@ -72,7 +72,15 @@ table.center{
     margin-right:auto;
 
 }
+table{
+    position:relative;
+}
+td{
+    position:relative;
+}
 .selectedCardTable tr td {
+    width:20%;
+    position:relative;
     padding:3px;
     background-color:black;
 }
@@ -184,7 +192,13 @@ input[type="checkbox"]{
     display:none;
     height:100px;
 }
+div.frontimage{
+    #position:absolute;
 
+}
+div.backimage{
+    #position:absolute;
+}
 
 #selectedCardTable img{
     max-width:200px;

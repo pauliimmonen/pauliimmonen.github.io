@@ -798,7 +798,7 @@ function initTable(table){
     let backimage_img=new Image()
     backimage.className="backimage"
     frontimage.className="frontimage"
-    backimage_img.src="card_images/card_back2.jpg"
+    backimage_img.src="card_images/card_back.jpg"
     backimage.style.height="0px"
     backimage.appendChild(backimage_img);
     frontimage.appendChild(frontimage_img)

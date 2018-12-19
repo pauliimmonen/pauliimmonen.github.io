@@ -898,7 +898,7 @@ function sortClicked(){
 
 function chooseCards() {
     if ($("div:animated").length>= 1){
-        eturn
+        return
     }
     if ($('.selected').length >= 1){
         repickCards()

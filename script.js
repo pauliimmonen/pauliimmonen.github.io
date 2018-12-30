@@ -55,7 +55,27 @@ var all_events=[
     {"name":"Tower", "set":"empires" ,"price":4, "type":["landmark"]},
     {"name":"Triumphal_Arch", "set":"empires" ,"price":4, "type":["landmark"]},
     {"name":"Wall", "set":"empires" ,"price":4, "type":["landmark"]},
-    {"name":"Wolf_Den", "set":"empires" ,"price":4, "type":["landmark"]}
+    {"name":"Wolf_Den", "set":"empires" ,"price":4, "type":["landmark"]},
+    {"name":"cathedral", "set":"renaissance" ,"price":3, "type":["project"]},
+    {"name":"city_gate", "set":"renaissance" ,"price":3, "type":["project"]},
+    {"name":"pageant", "set":"renaissance" ,"price":3, "type":["project"]},
+    {"name":"sewers", "set":"renaissance" ,"price":3, "type":["project"]},
+    {"name":"star_chart", "set":"renaissance" ,"price":3, "type":["project"]},
+    {"name":"exploration", "set":"renaissance" ,"price":4, "type":["project"]},
+    {"name":"fair", "set":"renaissance" ,"price":4, "type":["project"]},
+    {"name":"silos", "set":"renaissance" ,"price":4, "type":["project"]},
+    {"name":"sinister_plot", "set":"renaissance" ,"price":4, "type":["project"]},
+    {"name":"academy", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"capitalism", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"fleet", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"guildhall", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"piazza", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"road_network", "set":"renaissance" ,"price":5, "type":["project"]},
+    {"name":"barracks", "set":"renaissance" ,"price":6, "type":["project"]},
+    {"name":"crop_rotation", "set":"renaissance" ,"price":6, "type":["project"]},
+    {"name":"innovation", "set":"renaissance" ,"price":6, "type":["project"]},
+    {"name":"canal", "set":"renaissance" ,"price":7, "type":["project"]},
+    {"name":"citadel", "set":"renaissance" ,"price":8, "type":["project"]}
 ];
 
 var all_cards=[
@@ -338,6 +358,31 @@ var all_cards=[
     {"name":"tragic_hero", "set":"nocturne" ,"price":5,"type":["cards"]},
     {"name":"vampire", "set":"nocturne" ,"price":5,"type":["attack","trasher"]},
     {"name":"werewolf", "set":"nocturne" ,"price":5,"type":["attack"]},
+    {"name":"border_guard", "set":"renaissance" ,"price":2,"type":[""]},
+    {"name":"ducat", "set":"renaissance" ,"price":2,"type":[""]},
+    {"name":"lackeys", "set":"renaissance" ,"price":2,"type":["cards"]},
+    {"name":"acting_troupe", "set":"renaissance" ,"price":3,"type":["action"]},
+    {"name":"cargo_ship", "set":"renaissance" ,"price":3,"type":[""]},
+    {"name":"experiment", "set":"renaissance" ,"price":3,"type":["cards"]},
+    {"name":"improve", "set":"renaissance" ,"price":3,"type":["trasher"]},
+    {"name":"flag_bearer", "set":"renaissance" ,"price":4,"type":[""]},
+    {"name":"hideout", "set":"renaissance" ,"price":4,"type":["action,trasher"]},
+    {"name":"inventor", "set":"renaissance" ,"price":4,"type":[""]},
+    {"name":"mountain_village", "set":"renaissance" ,"price":4,"type":["action"]},
+    {"name":"patron", "set":"renaissance" ,"price":4,"type":[""]},
+    {"name":"priest", "set":"renaissance" ,"price":4,"type":["trasher"]},
+    {"name":"research", "set":"renaissance" ,"price":4,"type":["trasher"]},
+    {"name":"silk_merchant", "set":"renaissance" ,"price":4,"type":[""]},
+    {"name":"old_witch", "set":"renaissance" ,"price":5,"type":["attack"]},
+    {"name":"recruiter", "set":"renaissance" ,"price":5,"type":["trasher,action"]},
+    {"name":"scepter", "set":"renaissance" ,"price":5,"type":[""]},
+    {"name":"scholar", "set":"renaissance" ,"price":5,"type":["cards"]},
+    {"name":"sculptor", "set":"renaissance" ,"price":5,"type":[""]},
+    {"name":"seer", "set":"renaissance" ,"price":5,"type":[""]},
+    {"name":"spices", "set":"renaissance" ,"price":5,"type":["buy"]},
+    {"name":"swashbuckler", "set":"renaissance" ,"price":5,"type":["cards"]},
+    {"name":"treasurer", "set":"renaissance" ,"price":5,"type":["trasher"]},
+    {"name":"villain", "set":"renaissance" ,"price":5,"type":["attack"]}
 ];
 
 var random_cards=[];
@@ -764,6 +809,11 @@ function filterCardsBySet(cardlist){
 
             if(document.getElementById("nocturne_checkbox").checked){
                 if (elem.set=="nocturne"){
+                    return true;
+                }
+            }
+            if(document.getElementById("renaissance_checkbox").checked){
+                if (elem.set=="renaissance"){
                     return true;
                 }
             }

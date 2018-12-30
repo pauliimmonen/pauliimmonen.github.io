@@ -199,6 +199,11 @@ div.frontimage{
 div.backimage{
     #position:absolute;
 }
+div.settings_header_div{
+
+}
+div.settings_label_div{
+}
 
 #selectedCardTable img{
     max-width:200px;

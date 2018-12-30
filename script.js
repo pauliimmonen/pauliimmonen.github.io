@@ -878,10 +878,17 @@ function selectEvents(eventslist,n){
     var events = [];
     var item
     var fevents=eventslist;
+    var empty_event={"name":"", "set":"" ,"price":0,"type":[]}
 
     for (i = 0; i < n; i++){
        rand_i=Math.floor(Math.random()*eventslist.length);
-       item = eventslist[rand_i];
+
+
+        if (eventslist.length==0){
+            item = empty_event;
+        }else{
+            item = eventslist[rand_i];
+        }
 
        events.push(item);
        eventslist.splice(rand_i,1);
@@ -891,6 +898,9 @@ function selectEvents(eventslist,n){
 
 }
 function sortClicked(){
+    if ($("div:animated").length>= 1){
+        return
+    }
     sortCardsByPrice(random_cards);
     displayCards(random_cards);
 
@@ -923,14 +933,76 @@ function chooseCards() {
 }
 
 function setEventImage(elem,card){
+    /*
     elem.innerHTML="<img src=\"card_images/events/"+card.set+"/"+card.name+".jpg\" alt=\"\" ></img>"
+    */
+    let frontimage
+    let backimage
+    for (let i = 0; i < elem.childNodes.length; i++) {
+        if (elem.childNodes[i].className == "frontimage") {
+            frontimage = elem.childNodes[i];
+            break;
+        }
+    }
+    for (let i = 0; i < elem.childNodes.length; i++) {
+        if (elem.childNodes[i].className == "backimage") {
+            backimage = elem.childNodes[i];
+            break;
+        }
+    }
     elem.onclick = function(){
         toggleSelection(this)
     }
+
+
+    if (frontimage.childNodes[0].src==""){
+        frontimage.childNodes[0].src="card_images/events/"+card.set+"/"+card.name+".jpg"
+        frontimage.display="inline"
+        backimage.style.display="none"
+        return
+    }
+
+
+
+
+    var curHeight = $(frontimage.childNodes[0]).height();
+    frontimage.childNodes[0].onload=function() {
+        $(frontimage).animate({height:curHeight},400, function(){
+            backimage.style.display="none"
+            $(frontimage).css('height','auto');
+
+        });
+
+
+        $(backimage).animate({height:0},400, function(){
+            backimage.style.display="none"
+
+        });
+    };
+
+
+
+    backimage.style.display="block"
+    $(backimage).animate({height:curHeight},400, function(){
+
+    });
+    $(frontimage).animate({height:0},400, function(){
+        if (card.set==""){
+
+        }else{
+            frontimage.childNodes[0].src="card_images/events/"+card.set+"/"+card.name+".jpg"
+        }
+        //first animation finished
+        //
+    });
+
+
+
+
 }
 function setCardImage(elem,card){
-    var frontimage
-    var backimage
+    let frontimage
+    let backimage
     for (let i = 0; i < elem.childNodes.length; i++) {
         if (elem.childNodes[i].className == "frontimage") {
             frontimage = elem.childNodes[i];

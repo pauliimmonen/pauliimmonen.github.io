@@ -392,6 +392,7 @@ var find_cards=[];
 
 
 function updateAutocomplete(){
+    updateStorage();
     let selection=$('.selected')
     if ($('.selected').length != 1){
         return
@@ -445,12 +446,48 @@ function getAutoCompleteTagsFromCards(){
     return x;
 }
 
+function updateStorage(){
+    let check_boxes=[
+        "#base_checkbox",
+        "#intrigue_checkbox",
+        "#seaside_checkbox",
+        "#alchemy_checkbox",
+        "#prosperity_checkbox",
+        "#cornucopia_checkbox",
+        "#hinterlands_checkbox",
+        "#dark_ages_checkbox",
+        "#guilds_checkbox",
+        "#adventures_checkbox",
+        "#empires_checkbox",
+        "#nocturne_checkbox",
+        "#renaissance_checkbox"];
+    for (let b of check_boxes){
+        localStorage.setItem(b,$(b).is(":checked") );
+    }
+}
 function loadStorage(){
+    let check_boxes=[
+        "#base_checkbox",
+        "#intrigue_checkbox",
+        "#seaside_checkbox",
+        "#alchemy_checkbox",
+        "#prosperity_checkbox",
+        "#cornucopia_checkbox",
+        "#hinterlands_checkbox",
+        "#dark_ages_checkbox",
+        "#guilds_checkbox",
+        "#adventures_checkbox",
+        "#empires_checkbox",
+        "#nocturne_checkbox",
+        "#renaissance_checkbox"];
+    for (let b of check_boxes){
+        $(b).prop('checked', "true"==localStorage.getItem(b))
+        //$(b).prop('checked', false)
+    }
+
     //
     //TODO LOAD CURRENT SET TO STORAGE
 }
-
-
 function saveStorage(){
     //TODO SAVE CURRENT SET TO STORAGE
 }
@@ -877,6 +914,7 @@ function initTable(table){
         }
     }
 
+    loadStorage()
     chooseCards(all_cards)
 }
 
@@ -948,6 +986,7 @@ function selectEvents(eventslist,n){
 
 }
 function sortClicked(){
+    $('#choose').text("Randomize all")
     if ($("div:animated").length>= 1){
         return
     }
@@ -983,9 +1022,6 @@ function chooseCards() {
 }
 
 function setEventImage(elem,card){
-    /*
-    elem.innerHTML="<img src=\"card_images/events/"+card.set+"/"+card.name+".jpg\" alt=\"\" ></img>"
-    */
     let frontimage
     let backimage
     for (let i = 0; i < elem.childNodes.length; i++) {
@@ -1004,12 +1040,24 @@ function setEventImage(elem,card){
         toggleSelection(this)
     }
 
+//do not animate on first page load
 
     if (frontimage.childNodes[0].src==""){
-        frontimage.childNodes[0].src="card_images/events/"+card.set+"/"+card.name+".jpg"
-        frontimage.display="inline"
-        backimage.style.display="none"
+        if (card.set==""){
+            frontimage.childNodes[0].src="card_images/card_back90.jpg"
+            backimage.style.display="block"
+            backimage.style.height="auto"
+            $(frontimage).css('height',0);
+        }else{
+            frontimage.childNodes[0].src="card_images/events/"+card.set+"/"+card.name+".jpg"
+            frontimage.display="block"
+            backimage.style.display="none"
+            //
+        }
         return
+    }else{
+            frontimage.style.display="block"
+
     }
 
 

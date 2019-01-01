@@ -466,6 +466,7 @@ function updateStorage(){
     }
 }
 function loadStorage(){
+    let value;
     let check_boxes=[
         "#base_checkbox",
         "#intrigue_checkbox",
@@ -480,9 +481,18 @@ function loadStorage(){
         "#empires_checkbox",
         "#nocturne_checkbox",
         "#renaissance_checkbox"];
+    var false_count=0;
     for (let b of check_boxes){
-        $(b).prop('checked', "true"==localStorage.getItem(b))
+        if ((localStorage.getItem(b)!=null)){
+            if (localStorage.getItem(b)=="false"){
+                false_count++
+            }
+            $(b).prop('checked', "true"==localStorage.getItem(b))
+        }
         //$(b).prop('checked', false)
+    }
+    if (false_count>=13){
+       $("#base_checkbox").prop('checked', true)
     }
 
     //
